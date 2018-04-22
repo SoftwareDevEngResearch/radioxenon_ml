@@ -7,19 +7,13 @@ Topic: array importer
 import numpy as np
 
 def load_2d_coinc_spectrum(inputfile):
-    coincidence_array = np.genfromtxt(inputfile, delimiter = ',', dtype='int', encoding='utf-8-sig')  #encodes file as float
-    return coincidence_array
+    coincidence_array = np.genfromtxt(inputfile, delimiter = ',', dtype='int')  #encodes file as float
     print('Coincidence spectrum read and returned as an array!')
+    return coincidence_array
 
 def vector_spectrum(inputarray):
     [rows,columns] = inputarray.shape
     vec_spec = np.reshape(inputarray,[rows*columns,1])
-    return vec_spec
     print('Coincidence array turned into a column vector!')
+    return vec_spec, rows, columns
     
-    
-    
-huzzah = 'test1.csv'
-coin_arr = load_2d_coinc_spectrum(huzzah)
-test_vec = vector_spectrum(coin_arr)
-#print(coincidence_array)
