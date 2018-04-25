@@ -42,7 +42,7 @@ def matrix_legitimacy():
     assert simulation_vec[29,4] == 150
     assert simulation_vec.dtype == 'int32'
     assert experimental_vec.shape[0] == 30
-    assert simulation_vec[23] == 11
+    assert experimental_vec[23] == 11
     
     print("\nBoth the simulation matrix and the measurement matrix are of correct dimensions\nand were correctly built!")
     return
