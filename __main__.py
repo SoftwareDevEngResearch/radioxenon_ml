@@ -3,7 +3,7 @@ Created on Sun April 22 13:24:00 2018
 
 @author: Steven Czyz
 """
-import read_in.ml_matrix_composition as mlmc
+from radioxenon_ml.read_in import ml_matrix_composition as mlmc
 
 n=5 #this is a user defined number to state how many simulation spectra we will be using
 

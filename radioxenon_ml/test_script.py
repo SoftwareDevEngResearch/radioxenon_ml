@@ -11,7 +11,7 @@ except NameError:
     sys.path.append('C:\\Users\\Steven\\Documents\\GitHub\\radioxenon_ml')
 """
 
-from test_files import test_functions as tf
+from radioxenon_ml.test_files import test_functions as tf
 
 
 tf.test_import_sizes()

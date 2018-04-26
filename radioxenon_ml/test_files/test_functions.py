@@ -3,7 +3,7 @@ Created on Sun Apr 22 17:24:47 2018
 
 @author: Steven
 """
-from read_in import ml_matrix_composition as mlmc
+from radioxenon_ml.read_in import ml_matrix_composition as mlmc
 
 
 """
