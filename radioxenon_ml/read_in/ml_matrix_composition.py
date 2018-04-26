@@ -15,8 +15,8 @@ Makes 4 arrays:
 """
 def form_matrix(n):
     
-    nrowarr = np.empty(n+1, dtype=int)    #define array for # of rows in each array
-    ncolarr = np.empty(n+1, dtype=int)    #define array for # of columns in each array
+    nrowarr = np.empty(n+1, dtype=np.int32)    #define array for # of rows in each array
+    ncolarr = np.empty(n+1, dtype=np.int32)    #define array for # of columns in each array
     
     for i in range(1,n+1):
         huzzah = open('radioxenon_ml/test_files/test'+str(i)+'.csv')               
@@ -24,7 +24,7 @@ def form_matrix(n):
         columnvec, nrowarr[i-1], ncolarr[i-1] = arr_im.vector_spectrum(coin_arr)    #turns into column
         
         if i==1:                        
-            thearr = np.empty([(nrowarr[i-1]*ncolarr[i-1]),n], dtype=int)           #define array for simulation data
+            thearr = np.empty([(nrowarr[i-1]*ncolarr[i-1]),n], dtype=np.int32)           #define array for simulation data
         
         thearr[:,i-1] = columnvec[:,0]      #assemble the matrix one column at a time
         
