@@ -36,4 +36,4 @@ def form_matrix(n):
     experimental_vec, nrowarr[n], ncolarr[n] = arr_im.vector_spectrum(coin_arr)     #turns into column
     print("\nExperimental have been placed into the Maximum Liklihood Matrix")
         
-    return thearr, experimental_vec, nrowarr, ncolarr 
+    return thearr, experimental_vec, nrowarr, ncolarr
