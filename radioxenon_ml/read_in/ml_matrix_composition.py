@@ -7,7 +7,7 @@ from radioxenon_ml.read_in import array_import as arr_im
 import numpy as np
 
 
-def form_matrix(spectrum_file_location, n.int, offset=0):
+def form_matrix(spectrum_file_location, n, offset=0):
     """
     Makes 4 arrays:
         1 column array for # of rows in each file
