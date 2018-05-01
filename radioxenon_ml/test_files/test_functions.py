@@ -18,7 +18,7 @@ def test_file_existence():
             open(spectrum_file_location+str(attempted_file_load)+'.csv') #this is the "experiment" file
         except FileNotFoundError:
             print(attempted_file_load)
-            assert n==0 
+            assert attempted_file_load==0 
         
     
 def test_different_n_values():
