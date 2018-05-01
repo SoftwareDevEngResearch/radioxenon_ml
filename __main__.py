@@ -9,8 +9,5 @@ n=5 #this is a user defined number to state how many simulation spectra we will 
 spectrum_file_location = 'radioxenon_ml/test_files/test'
 offset = 0  
 
-print(type(n))
-print(type(spectrum_file_location))
-
-simulation_vec, experimental_vec = mlmc.form_matrix(spectrum_file_location, n);    #known issue: requires UTF-8 encoding
+simulation_vec, experimental_vec = mlmc.form_matrix(spectrum_file_location);    #known issue: requires UTF-8 encoding
 
