@@ -47,7 +47,7 @@ def test_array_clear():
     offset = 3
     spectrum_file_location = 'radioxenon_ml/test_files/test'
     first_sim_vec, first_exp_vec = mlmc.form_matrix(spectrum_file_location,n,offset)
-    offset = 6
+    offset = 4
     second_sim_vec, second_exp_vec = mlmc.form_matrix(spectrum_file_location,n,offset)
     print(np.shape(first_exp_vec))
     print(np.shape(second_exp_vec))
