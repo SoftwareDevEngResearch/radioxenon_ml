@@ -4,6 +4,7 @@ Created on Sun Apr 22 17:24:47 2018
 @author: Steven
 """
 from radioxenon_ml.read_in import ml_matrix_composition as mlmc
+from radioxenon_ml.solve import variance as v
 import numpy as np
 
 
@@ -86,3 +87,21 @@ def matrix_legitimacy():
     
     print("\nBoth the simulation matrix and the measurement matrix are of correct dimensions\nand were correctly built!")
     return
+
+def test_variance():
+    """
+    first test the variance function using an experimental vector, then
+    test the variance function using two known vectors
+    """
+    S = np.array([1,2,3,4,5,6,7,8,9,10,11,12])
+    A = np.array([1,1,1,1,2,2,2,2,3,3,3,3])
+    f = np.array([0,0,0,0,0,0,1,1,1,1,1,1])
+    D=np.array([])   
+    for q in range(0,3):
+        if q == 0:
+            D=np.append(D,v.variance(q,S,f))
+        else:
+            D=np.append(D,v.variance(q,A,f))
+        print(D)
+    
+        
