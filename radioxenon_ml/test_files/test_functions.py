@@ -7,6 +7,10 @@ from radioxenon_ml.read_in import ml_matrix_composition as mlmc
 from radioxenon_ml.solve import variance as v
 import numpy as np
 
+#for some reason the following import must occur in order to refresh any changes to variance 
+#if I try to import it earlier it does not work
+import radioxenon_ml.solve.variance
+import radioxenon_ml.read_in.ml_matrix_composition
 
 def test_file_existence():
     """
@@ -94,14 +98,19 @@ def test_variance():
     test the variance function using two known vectors
     """
     S = np.array([1,2,3,4,5,6,7,8,9,10,11,12])
-    A = np.array([1,1,1,1,2,2,2,2,3,3,3,3])
+    A = np.array([1,2,3,4])
     f = np.array([0,0,0,0,0,0,1,1,1,1,1,1])
     D=np.array([])   
     for q in range(0,3):
         if q == 0:
-            D=np.append(D,v.variance(q,S,f))
+            D=v.variance(q,S,f)
+            assert len(D)==len(S)
+            assert D[1] == S[2]
+            print("\nFirst iteration is correct!")
         else:
-            D=np.append(D,v.variance(q,A,f))
-        print(D)
+            D=v.variance(q,A,f)
+            assert len(D) == len(f)
+            print("\nLengths are proper!")
+       return
     
         
