@@ -111,6 +111,6 @@ def test_variance():
             D=v.variance(q,A,f)
             assert len(D) == len(f)
             print("\nLengths are proper!")
-       return
+        return
     
         
