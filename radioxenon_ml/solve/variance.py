@@ -11,10 +11,10 @@ def variance(q, AS, f):
     Determines the variance of the number of counts in each channel i of the 
     vectorized version of the 2D coincidence spectrum for the qth iteration:
         
-    -q is the iteration number
-    -AS is either the estimated activity of the kth nuclide A or 
+    -q(int) is the iteration number
+    -AS(np.array) is either the estimated activity of the kth nuclide A or 
         the experimental sample spectrum S (if first iteration)
-    -f is an array of the reference spectra for the reference spectra k
+    -f(np.arr) is an array of the reference spectra for the reference spectra k
     
     Equations are taken from the quite excellent paper:
         
