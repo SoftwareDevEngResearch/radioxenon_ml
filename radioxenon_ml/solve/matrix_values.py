@@ -12,9 +12,9 @@ def j_matrix_val(S,D,f):
     Determines the variance of the number of counts in each channel i of the 
     vectorized version of the 2D coincidence spectrum for the qth iteration:
         
-    -S is the original experimental spectrum
-    -D is the determined variance value from variance()
-    -f is the reference spectrum for each isotope as well as background
+    -S(np.array) is the original experimental spectrum
+    -D(np.array) is the determined variance value from variance()
+    -f(np.array) is the reference spectrum for each isotope as well as background
     
     Equations are taken from the quite excellent paper:
         
@@ -42,8 +42,8 @@ def k_matrix_val(D,f):
     Determines the variance of the number of counts in each channel i of the 
     vectorized version of the 2D coincidence spectrum for the qth iteration:
         
-    -D is the determined variance value from variance()
-    -f is the reference spectrum for each isotope as well as background
+    -D(np.array) is the determined variance value from variance()
+    -f(np.array) is the reference spectrum for each isotope as well as background
     
     Equations are taken from the quite excellent paper:
         
