@@ -103,7 +103,7 @@ def test_variance():
     test the variance function using two known vectors
     """
     S = np.array([1,2,3,4,5,6,7,8,9,10,11,12])
-    A = np.array([1,2,3,4])
+    A = np.array([1,2,3,4,5])
     f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]])
     D=np.array([])   
     for q in range(0,3):
