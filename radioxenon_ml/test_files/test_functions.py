@@ -9,8 +9,11 @@ import numpy as np
 
 #for some reason the following import must occur in order to refresh any changes to variance 
 #if I try to import it earlier it does not work
+#this is a temporary thing, and is commented out when I am not actively testing functions
+"""
 import radioxenon_ml.solve.variance
 import radioxenon_ml.read_in.ml_matrix_composition
+"""
 
 def test_file_existence():
     """
