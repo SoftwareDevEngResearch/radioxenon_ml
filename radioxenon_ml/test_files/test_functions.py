@@ -5,6 +5,7 @@ Created on Sun Apr 22 17:24:47 2018
 """
 from radioxenon_ml.read_in import ml_matrix_composition as mlmc
 from radioxenon_ml.solve import variance as v
+from radioxenon_ml.solve import matrix_values as matval
 import numpy as np
 
 #for some reason the following import must occur in order to refresh any changes to variance 
@@ -13,6 +14,7 @@ import numpy as np
 """
 import radioxenon_ml.solve.variance
 import radioxenon_ml.read_in.ml_matrix_composition
+import radioxenon_ml.solve.matrix_values
 """
 
 def test_file_existence():
@@ -102,7 +104,7 @@ def test_variance():
     """
     S = np.array([1,2,3,4,5,6,7,8,9,10,11,12])
     A = np.array([1,2,3,4])
-    f = np.array([0,0,0,0,0,0,1,1,1,1,1,1])
+    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]])
     D=np.array([])   
     for q in range(0,3):
         if q == 0:
@@ -112,8 +114,35 @@ def test_variance():
             print("\nFirst iteration is correct!")
         else:
             D=v.variance(q,A,f)
-            assert len(D) == len(f)
+            assert np.shape(D)[0] == np.shape(f)[1]
             print("\nLengths are proper!")
-        return
-    
+            print(D)
+        
+def test_J():
+    """
+    Test to make sure the J vector comes out as a column of 4 isotopes + bkgd
+    """
+    S = np.array([1,2,3,4,5,6,7,8,9,10,11,12])
+    D = np.array([1,  1,  1,  1,  1,  1, 11, 11, 11, 11, 11, 11]) 
+    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]])
+  
+    J=matval.j_matrix_val(S,D,f)
+    assert np.shape(J)[0] == np.shape(f)[0]
+    assert np.shape(J)[1] == 1
+    print("\nJ column vector is correct!")
+    print(J)
+            
+def test_K():
+    """
+    first test the K function using an experimental vector, then
+    test the variance function using two known vectors
+    """
+    D = np.array([1,  1,  1,  1,  1,  1, 11, 11, 11, 11, 11, 11]) 
+    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]])
+ 
+    K=matval.k_matrix_val(D,f)
+    assert np.shape(K)[0] == np.shape(f)[0]
+    assert np.shape(K)[1] == np.shape(f)[0]
+    print("\nK Matrix is correct!")
+    print(K)
         

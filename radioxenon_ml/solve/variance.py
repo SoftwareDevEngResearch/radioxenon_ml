@@ -14,7 +14,7 @@ def variance(q, AS, f):
     -q is the iteration number
     -AS is either the estimated activity of the kth nuclide A or 
         the experimental sample spectrum S (if first iteration)
-    -f is the reference spectrum
+    -f is an array of the reference spectra for the reference spectra k
     
     Equations are taken from the quite excellent paper:
         
@@ -26,8 +26,8 @@ def variance(q, AS, f):
         https://doi.org/10.1016/j.nimb.2011.09.005.
         
     """
-    D_temp = np.zeros((len(AS),len(f)))
-    D = np.zeros(len(f))
+    D_temp = np.zeros((np.shape(f)[0],np.shape(f)[1]))
+    D = np.zeros((np.shape(f)[1],1))
     
     if q < 0:
         print("Iteration must be greater than 0! Exiting...")
@@ -35,9 +35,9 @@ def variance(q, AS, f):
     
     else:      
         if q > 0:
-            for k in range(len(AS)):        #loop over # of isotopes
-                for i in range(len(f)):         #loop over # of array elements
-                    D_temp[k,i] = AS[k]*f[i]   #Eqn. 5
+            for k in range(np.shape(f)[0]):        #loop over # of isotopes
+                for i in range(np.shape(f)[1]):         #loop over # of array elements
+                    D_temp[k,i] = AS[k]*f[k,i]   #Eqn. 5
             
             D = np.sum(D_temp,axis=0)  
             

@@ -19,8 +19,8 @@ def form_matrix(spectrum_file_location, n=5, offset=0):
                The code expects the files to all be named the same name, with
                a number appended to it to represent the test file it is. For
                example, test1.csv, test2.csv, up to testn.csv. Starts from 1
-    --n(int): number of spectra to be loaded. Default is 5 (4 simulation 
-               radioxenon spectra plus onen experimental spectrum)
+    --n(int): number of spectra to be loaded. Default is 5 (4 simulated 
+               radioxenon spectra plus one background spectrum)
    -- offset(int): how much of an offset from 1 for tests that you want to  
                load. This is primarily useful if you have many tests (say 1-9),
                but you only want to load 4-8. You would put in offset = 3 and 
