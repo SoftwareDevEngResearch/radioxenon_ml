@@ -6,7 +6,7 @@ Created on Wed May  9 14:25:47 2018
 """
 
 from radioxenon_ml.read_in import ml_matrix_composition as mlmc
-from radioxenon_ml.solve import iterate 
+from radioxenon_ml.solve import iterate
 
 """the master file for the radioxenon_ml package"""
 
@@ -17,4 +17,4 @@ err = 0.01
 
 simulation, experiment = mlmc.form_matrix(spectrum_file_location,n,offset);    #known issue: requires UTF-8 encoding
 
-iterate(simulation, experiment, err)
+iterate.iterate(simulation, experiment, err)
