@@ -18,4 +18,5 @@ err = 0.01
 
 simulation, experiment = mlmc.form_matrix(spectrum_file_location,n,offset);    #known issue: requires UTF-8 encoding
 
-iterate.iterate(simulation, experiment, err)
+A,J,K,q=iterate.iterate(simulation, experiment, err)
+print("\n_____________________________________\nTotal activity percents = " + str(A*100))
