@@ -26,8 +26,8 @@ def variance(q, AS, f):
         https://doi.org/10.1016/j.nimb.2011.09.005.
         
     """
-    D_temp = np.zeros((np.shape(f)[0],np.shape(f)[1]))
-    D = np.zeros((np.shape(f)[1],1))
+    D_temp = np.zeros((np.shape(f)[0],np.shape(f)[0]))
+    D = np.zeros((np.shape(f)[0],1))
     
     if q < 0:
         print("Iteration must be greater than 0! Exiting...")
@@ -35,13 +35,24 @@ def variance(q, AS, f):
     
     else:      
         if q > 0:
-            for k in range(np.shape(f)[0]):        #loop over # of isotopes
-                for i in range(np.shape(f)[1]):         #loop over # of array elements
-                    D_temp[k,i] = AS[k]*f[k,i]   #Eqn. 5
+            for k in range(np.shape(f)[1]):        #loop over # of isotopes
+                for i in range(np.shape(f)[0]):         #loop over # of array elements
+                    print("AS = " + str(AS))
+                    print("k = "+ str(k))
+                    print("f[i,k] = " + str(f[i,k]))
+                    D_temp[k,i] = AS[k]*f[i,k]   #Eqn. 5
             
-            D = np.sum(D_temp,axis=0)  
+            D = np.sum(D_temp,axis=1)  
             
         else:
+            print("AS = " + str(AS))
             D = AS+1
-        
+            """
+            AS_temp = np.zeros((np.shape(f)[1],int(np.shape(f)[0]/np.shape(f)[1])))
+            for k in range(np.shape(f)[1]): 
+                for i in range(int(np.shape(f)[0]/np.shape(f)[1])):            
+                    AS_temp[k,i] = AS[i+(k-1)*int(np.shape(f)[0]/np.shape(f)[1])]
+            
+                D[k] = np.sum(AS_temp[k])+1
+            """
         return D

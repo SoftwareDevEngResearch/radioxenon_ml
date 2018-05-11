@@ -26,12 +26,12 @@ def j_matrix_val(S,D,f):
         https://doi.org/10.1016/j.nimb.2011.09.005.
         
     """
-    J_temp = np.zeros((np.shape(f)[0],np.shape(f)[1]))
-    J = np.zeros((np.shape(f)[0],1))
+    J_temp = np.zeros((np.shape(f)[1],np.shape(f)[0]))
+    J = np.zeros((np.shape(f)[1],1))
 
-    for j in range(np.shape(f)[0]):        #loop over # of isotopes
-        for i in range(np.shape(f)[1]):         #loop over # of array elements
-            J_temp[j,i] = (S[i]*f[j,i])/D[i]   #Eqn. 7
+    for j in range(np.shape(f)[1]):        #loop over # of isotopes
+        for i in range(np.shape(f)[0]):         #loop over # of array elements
+            J_temp[j,i] = (S[i]*f[i,j])/D[i]   #Eqn. 7
         
         J[j] = np.sum(J_temp[j])    #sum all columns to make a column vector
                     
@@ -55,16 +55,16 @@ def k_matrix_val(D,f):
         https://doi.org/10.1016/j.nimb.2011.09.005.
         
     """
-    K_element_temp = np.zeros((np.shape(f)[0],np.shape(f)[1]))
-    K = np.zeros((np.shape(f)[0],np.shape(f)[0]))
+    K_element_temp = np.zeros((np.shape(f)[1],np.shape(f)[0]))
+    K = np.zeros((np.shape(f)[1],np.shape(f)[1]))
     
 
-    for m in range (np.shape(f)[0]):        #loop over # of isotopes
-        for j in range(np.shape(f)[0]):        #loop over # of isotopes again
-            for i in range(np.shape(f)[1]):         #loop over # of array elements
-                K_element_temp[j,i] = (f[m,i]*f[j,i])/D[i]   #Eqn. 7
+    for m in range (np.shape(f)[1]):        #loop over # of isotopes
+        for j in range(np.shape(f)[1]):        #loop over # of isotopes again
+            for i in range(np.shape(f)[0]):         #loop over # of array elements
+                K_element_temp[j,i] = (f[i,m]*f[i,j])/D[i]   #Eqn. 7
     
-            K[m,j] = np.sum(K_element_temp[j])  #sum all elements to make an entry in the array
+            K[m,j] = np.sum(K_element_temp[j,i])  #sum all elements to make an entry in the array
     
 
     return K

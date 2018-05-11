@@ -39,12 +39,12 @@ def form_matrix(spectrum_file_location, n=5, offset=0):
         
         simulation_arr[:,i-1] = columnvec[:,0]      #assemble the matrix one column at a time
         
-    print("\nSimulated spectra have been placed into the Maximum Liklihood Matrix")
+    print("\nSimulated spectra have been placed into the Maximum Likelihood Matrix")
     
     opened_spec_file = open(spectrum_file_location+str(n+1+offset)+'.csv')           #Opens experimental spectrum
     coin_arr = arr_im.load_2d_coinc_spectrum(opened_spec_file)                                #loads the array
     experimental_vec = np.empty(columnvec.shape[0], dtype=int)                      #defines experimental array
     experimental_vec, nrowarr[n], ncolarr[n] = arr_im.vector_spectrum(coin_arr)     #turns into column
-    print("\nExperimental have been placed into the Maximum Liklihood Matrix")
+    print("\nExperimental have been placed into the Maximum Likelihood Matrix")
         
     return simulation_arr, experimental_vec

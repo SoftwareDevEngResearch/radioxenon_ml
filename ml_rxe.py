@@ -7,7 +7,8 @@ Created on Wed May  9 14:25:47 2018
 
 from radioxenon_ml.read_in import ml_matrix_composition as mlmc
 from radioxenon_ml.solve import iterate
-
+import radioxenon_ml.solve.iterate
+import radioxenon_ml.solve.variance
 """the master file for the radioxenon_ml package"""
 
 n=5 #this is a user defined number to state how many simulation spectra we will be using
