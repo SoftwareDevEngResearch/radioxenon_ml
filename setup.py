@@ -7,7 +7,7 @@ here = path.abspath(path.dirname(__file__))
 
 with open(path.join(here, 'radioxenon_ml', '_version.py')) as version_file:
     exec(version_file.read())
-
+print(version_file)
 with open(path.join(here, 'README.md')) as readme_file:
     readme = readme_file.read()
 
@@ -67,6 +67,3 @@ setup(
     setup_requires=setup_requires,
     zip_safe=False,
 )
-
-if __name__ == "__main__":
-    setup()

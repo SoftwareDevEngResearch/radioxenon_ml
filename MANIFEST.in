@@ -1,5 +1,6 @@
+include MANIFEST.in
 include LICENSE
-include AUTHORS.md
 include CHANGELOG.md
-include CONTRIBUTING.md
-include radioxenon_ml/test_files/*.txt
+include radioxenon_ml/test_files/*.csv
+include setup.py
+include setup.cfg
