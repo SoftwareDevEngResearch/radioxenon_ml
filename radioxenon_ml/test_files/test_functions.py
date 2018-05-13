@@ -127,7 +127,7 @@ def test_J():
     f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]])
   
     J=matval.j_matrix_val(S,D,f)
-    assert np.shape(J)[0] == np.shape(f)[0]
+    assert np.shape(J)[0] == np.shape(f)[1]
     assert np.shape(J)[1] == 1
     print("\nJ column vector is correct!")
     print(J)
@@ -141,8 +141,8 @@ def test_K():
     f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]])
  
     K=matval.k_matrix_val(D,f)
-    assert np.shape(K)[0] == np.shape(f)[0]
-    assert np.shape(K)[1] == np.shape(f)[0]
+    assert np.shape(K)[0] == np.shape(f)[1]
+    assert np.shape(K)[1] == np.shape(f)[1]
     print("\nK Matrix is correct!")
     print(K)
         
