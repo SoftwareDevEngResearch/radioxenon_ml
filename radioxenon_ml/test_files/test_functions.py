@@ -97,7 +97,7 @@ def matrix_legitimacy():
     print("\nBoth the simulation matrix and the measurement matrix are of correct dimensions\nand were correctly built!")
     return
 
-def test_variance():
+def test_variance(): 
     """
     first test the variance function using an experimental vector, then
     test the variance function using two known vectors
