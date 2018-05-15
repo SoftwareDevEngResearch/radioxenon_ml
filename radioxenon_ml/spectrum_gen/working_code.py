@@ -154,6 +154,7 @@ def main(args):
     if size_counter > 10**6: #Increase this value to make individual file writes larger
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       print("Clearing variable cache and writing data file...")
 =======
       print "Clearing variable cache and writing data file..."
@@ -161,6 +162,9 @@ def main(args):
 =======
       print "Clearing variable cache and writing data file..."
 >>>>>>> parent of d184f1d... Modified and created PTRAC plotting tools
+=======
+      print "Clearing variable cache and writing data file..."
+>>>>>>> 974447defcb6101e861049312e146c235ba43ad1
       counter_outFile.write('total sample count: ' + str(sample_counter) + ' / abnormal sample count: ' + str(abnormality_counter)+'\n');
       outAdr = os.getcwd() + '/' + args[2] + "file_"+str(file_count);
       outFile = open(outAdr, 'w');
@@ -243,6 +247,7 @@ def main(args):
     
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   print('end of collecting data ... total sample count: ' + str(sample_counter) + ' / abnormal sample count: ' + str(abnormality_counter))
 =======
   print 'end of collecting data ... total sample count: ' + str(sample_counter) + ' / abnormal sample count: ' + str(abnormality_counter);
@@ -250,6 +255,9 @@ def main(args):
 =======
   print 'end of collecting data ... total sample count: ' + str(sample_counter) + ' / abnormal sample count: ' + str(abnormality_counter);
 >>>>>>> parent of d184f1d... Modified and created PTRAC plotting tools
+=======
+  print 'end of collecting data ... total sample count: ' + str(sample_counter) + ' / abnormal sample count: ' + str(abnormality_counter);
+>>>>>>> 974447defcb6101e861049312e146c235ba43ad1
 
   counter_outFile.write('total sample count: ' + str(sample_counter) + ' / abnormal sample count: ' + str(abnormality_counter)+'\n');
 
