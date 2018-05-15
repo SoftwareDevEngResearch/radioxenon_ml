@@ -145,3 +145,7 @@ def test_K():
     print("\nK Matrix is correct!")
     print(K)
         
+def test_with_simulations():
+    """
+    tests with coincidence simulation data
+    """

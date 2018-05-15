@@ -2,35 +2,43 @@ clear all
 close all
 clc
 
+minx = 0;
+miny = 0;
+maxx = 1000;
+maxy = 1000;
+incrementx = 5;
+incrementy = 5;
+Zfliptot = zeros((maxx-minx)/incrementx+1, (maxy-miny)/incrementy+1);
+
 for i=1:6
     
     close all
-    clearvars -except i
+    clearvars -except i Zfliptot minx maxx miny maxy incrementx incrementy
     
     if i == 1
         isotope = char('131m');
-        Xedges = 0:2:400;
-        Yedges = 0:2:400;
+        Xedges = minx:incrementx:maxx;
+        Yedges = miny:incrementy:maxy;
     elseif i == 2
         isotope = char('133m');
-        Xedges = 0:2:400;
-        Yedges = 0:2:400;
+        Xedges = minx:incrementx:maxx;
+        Yedges = miny:incrementy:maxy;
     elseif i == 3
-        isotope = char('135');
-        Xedges = 0:2:1000;
-        Yedges = 0:2:1000;
+        isotope = char('135');        
+        Xedges = minx:incrementx:maxx;
+        Yedges = miny:incrementy:maxy;
     elseif i == 4
         isotope = char('133gb');
-        Xedges = 0:2:600;
-        Yedges = 0:2:600;
+        Xedges = minx:incrementx:maxx;
+        Yedges = miny:incrementy:maxy;
     elseif i == 5
         isotope = char('133xb');
-        Xedges = 0:2:600;
-        Yedges = 0:2:600;
+        Xedges = minx:incrementx:maxx;
+        Yedges = miny:incrementy:maxy;
     elseif i == 6
         isotope = char('133xe');
-        Xedges = 0:2:600;
-        Yedges = 0:2:600;
+        Xedges = minx:incrementx:maxx;
+        Yedges = miny:incrementy:maxy;
     end
         
     fileID = fopen([isotope, '_coin.txt'],'r');            %read in file
@@ -43,8 +51,6 @@ for i=1:6
     energy(:,2) = cellfun(@str2num,(columns{1,4}(2:end,1)))*1000;   %electron
     broadenedenergy = normrnd(energy,(0.17/2.35)*energy);           %apply gaussian broadening
 
-%     Xedges = 0:2:1000;
-%     Yedges = 0:2:1000;
     Z=hist3(broadenedenergy, 'ctrs', {Yedges Xedges});
     h=surfc(Xedges,Yedges,Z);
     axis xy
@@ -62,8 +68,12 @@ for i=1:6
     saveas(gcf,[isotope, '_plot.fig']);
     save([isotope, '_histogram.mat'])
     Zflip = flipud(Z);
-    csvwrite([isotope, '_spectrum.csv'],Zflip)
+    csvwrite(['test', num2str(i+23), '.csv'],Zflip)
 
+    Zfliptot=Zfliptot+Zflip;
+    
     isotope
     
 end
+
+csvwrite(['test', num2str(i+1+23), '.csv'],Zfliptot)
