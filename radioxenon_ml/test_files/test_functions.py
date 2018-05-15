@@ -97,19 +97,14 @@ def matrix_legitimacy():
     print("\nBoth the simulation matrix and the measurement matrix are of correct dimensions\nand were correctly built!")
     return
 
-<<<<<<< HEAD
-def test_variance(): 
-=======
 def test_variance():
->>>>>>> 974447defcb6101e861049312e146c235ba43ad1
     """
     first test the variance function using an experimental vector, then
     test the variance function using two known vectors
     """
-    S = np.array([1,2,3,4,5,6,7,8,9,10,11,12])
-    A = np.array([1,2,3,4,5])
-    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]])
-    D=np.array([])   
+    S = np.array([[1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[12]])
+    A = np.array([[1,2,3,4,5]])
+    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]]).T 
     for q in range(0,3):
         if q == 0:
             D=v.variance(q,S,f)
@@ -118,7 +113,7 @@ def test_variance():
             print("\nFirst iteration is correct!")
         else:
             D=v.variance(q,A,f)
-            assert np.shape(D)[0] == np.shape(f)[1]
+            assert np.shape(D)[0] == np.shape(f)[0]
             print("\nLengths are proper!")
             print(D)
         
@@ -126,9 +121,9 @@ def test_J():
     """
     Test to make sure the J vector comes out as a column of 4 isotopes + bkgd
     """
-    S = np.array([1,2,3,4,5,6,7,8,9,10,11,12])
-    D = np.array([1,  1,  1,  1,  1,  1, 11, 11, 11, 11, 11, 11]) 
-    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]])
+    S = np.array([[1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[12]])
+    D = np.array([1,  1,  1,  1,  1,  1, 11, 11, 11, 11, 11, 11]).T
+    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]]).T
   
     J=matval.j_matrix_val(S,D,f)
     assert np.shape(J)[0] == np.shape(f)[1]
@@ -142,7 +137,7 @@ def test_K():
     test the variance function using two known vectors
     """
     D = np.array([1,  1,  1,  1,  1,  1, 11, 11, 11, 11, 11, 11]) 
-    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]])
+    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]]).T
  
     K=matval.k_matrix_val(D,f)
     assert np.shape(K)[0] == np.shape(f)[1]

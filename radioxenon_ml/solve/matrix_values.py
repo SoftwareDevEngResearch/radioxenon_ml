@@ -59,7 +59,7 @@ def k_matrix_val(D,f):
     K = np.zeros((np.shape(f)[1],np.shape(f)[1]))
     
 
-    for m in range (np.shape(f)[1]):        #loop over # of isotopes
+    for m in range(np.shape(f)[1]):        #loop over # of isotopes
         for j in range(np.shape(f)[1]):        #loop over # of isotopes again
             for i in range(np.shape(f)[0]):         #loop over # of array elements
                 K_element_temp[j,i] = (f[i,m]*f[i,j])/D[i]   #Eqn. 7
