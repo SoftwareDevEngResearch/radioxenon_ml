@@ -39,7 +39,7 @@ def iterate(f,S,err=0.01):
         if q==0:
             D = v.variance(q,S,f)
         else:
-            if q%5==0:
+            if q%3==0:
                 print("q = " + str(q))
             D = v.variance(q,Aold,f)
         
@@ -57,6 +57,8 @@ def iterate(f,S,err=0.01):
             q += 1
             if q%3==0:
                 print("\ncompare_error = " + str(compare_error))
+                print('\nA = ')
+                print(str(A))
         else:
             
             stop_iteration = 1
