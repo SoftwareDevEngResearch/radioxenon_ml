@@ -7,7 +7,7 @@ from radioxenon_ml.read_in import array_import as arr_im
 import numpy as np
 
 
-def form_matrix(spectrum_file_location, n=5, offset=0):
+def form_matrix(spectrum_file_location, scale_array, n=5, offset=0):
     """
     Makes 4 arrays:
         1 column array for # of rows in each file
@@ -32,6 +32,7 @@ def form_matrix(spectrum_file_location, n=5, offset=0):
     for i in range(1,n+1):
         opened_spec_file = open(spectrum_file_location+str(i+offset)+'.csv')               
         coin_arr = arr_im.load_2d_coinc_spectrum(opened_spec_file)                            #loads the array
+        coin_arr = np.round(coin_arr*scale_array[i-1]);
         columnvec, nrowarr[i-1], ncolarr[i-1] = arr_im.vector_spectrum(coin_arr)    #turns into column
         
         if i==1:                        
@@ -42,9 +43,26 @@ def form_matrix(spectrum_file_location, n=5, offset=0):
     print("\nSimulated spectra have been placed into the Maximum Likelihood Matrix")
     
     opened_spec_file = open(spectrum_file_location+str(n+1+offset)+'.csv')           #Opens experimental spectrum
-    coin_arr = arr_im.load_2d_coinc_spectrum(opened_spec_file)                                #loads the array
-    experimental_vec = np.empty(columnvec.shape[0], dtype=int)                      #defines experimental array
+    coin_arr = arr_im.load_2d_coinc_spectrum(opened_spec_file)                       #loads the array
+    #experimental_vec = np.empty(columnvec.shape[0], dtype=int)                      
     experimental_vec, nrowarr[n], ncolarr[n] = arr_im.vector_spectrum(coin_arr)     #turns into column
     print("\nExperimental have been placed into the Maximum Likelihood Matrix")
         
     return simulation_arr, experimental_vec
+
+
+
+"""
+def scale_matrix(experiment_unscaled, simulation_unscaled, scale_array):
+"""
+"""
+Makes 4 arrays:
+    
+--experiment(np.array): vector of experimental spectrum
+--simulation(np.array): array of simulated spectra
+   -- scale_array(np.array): amount you'd like to scale each isotope by
+"""    
+
+"""
+return simulation, experiment
+"""

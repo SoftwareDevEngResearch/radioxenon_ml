@@ -68,12 +68,53 @@ for i=1:6
     saveas(gcf,[isotope, '_plot.fig']);
     save([isotope, '_histogram.mat'])
     Zflip = flipud(Z);
+    
     csvwrite(['test', num2str(i+23), '.csv'],Zflip)
 
-    Zfliptot=Zfliptot+Zflip;
+    Zfliptot=Zflip*0.15;
     
     isotope
     
 end
 
 csvwrite(['test', num2str(i+1+23), '.csv'],Zfliptot)
+
+i=7
+isotope = char('background')
+Xedges = minx:incrementx:maxx;
+Yedges = miny:incrementy:maxy;
+
+backeng = zeros(ceil(normrnd(length(energy)*0.01,2*(0.17/2.35)*length(energy)*0.01)),2);
+backengtemp = backeng;
+
+for j=1:size(backeng,2)
+    for k=1:size(backeng,1)
+        
+        backengtemp = normrnd(size(backeng,1)/log(k),2.35*(0.17/2.35)*size(backeng,1));
+            if backengtemp < 0
+                backengtemp = 0;
+            end
+        backeng(k,j) = round(backengtemp);
+        
+    end
+end
+
+Z=hist3(backeng, 'ctrs', {Yedges Xedges});
+h=surfc(Xedges,Yedges,Z);
+axis xy
+view(2)
+set(h,'LineStyle','none')
+set(gca, 'FontSize', 14)
+caxis([0, 5]);
+colorbar
+colormap jet
+xlabel('Energy (kev), Silicon 1 + Silicon 2','Fontsize', 14);
+ylabel('Energy (kev), CZT 1 + CZT 2','Fontsize', 14);
+title(['Background Coincidence'],'FontSize', 14, 'fontweight','bold');
+axis square
+
+saveas(gcf,[isotope, '_plot.png']);
+saveas(gcf,[isotope, '_plot.fig']);
+save([isotope, '_histogram.mat'])
+Zflip = flipud(Z);
+csvwrite(['test', num2str(i+23), '.csv'],Zflip)

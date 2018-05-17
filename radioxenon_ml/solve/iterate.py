@@ -15,7 +15,6 @@ def iterate(f,S,err=0.01):
     Conducts the iterative process to determine the relative activities of
     radioxenon isotopes and of background in the experimental spectrum
     
-    -n(int) is the number of isotopes + background    
     -S(np.array) is the experimental spectrum
     -f(np.array) is an array of the reference spectra for the reference spectra k
     -err(float) is the acceptable variance before exiting the iteration scheme
@@ -56,6 +55,8 @@ def iterate(f,S,err=0.01):
         
             Aold = A
             q += 1
+            if q%3==0:
+                print("\ncompare_error = " + str(compare_error))
         else:
             
             stop_iteration = 1
@@ -65,34 +66,3 @@ def iterate(f,S,err=0.01):
             
     return A,J,K,q
 
-    """
-    q=0
-    Aold = np.ones((1,np.shape(f)[1]))/np.shape(f)[1]  #normalized beginning activity array
-    stop_iteration = 0
-    
-    while stop_iteration == 0:
-        
-        if q==0:
-            D = v.variance(q,S,f)
-        else:
-            print("q = " + str(q))
-            D = v.variance(q,Aold,f)
-        
-        J = matval.j_matrix_val(S,D,f)
-        K = matval.k_matrix_val(D,f)
-        print("J = " + str(np.shape(J)))
-        print("K = " + str(np.shape(K)))
-        return J, K
-        A = np.transpose(np.linalg.solve(K,J))
-        
-        compare_error = abs((A-Aold)/A)
-        
-        if np.min(compare_error) >= err:
-        
-            Aold = A
-            q += 1
-            
-        else:
-            
-            print("compare_error = " + str(compare_error))
-    """

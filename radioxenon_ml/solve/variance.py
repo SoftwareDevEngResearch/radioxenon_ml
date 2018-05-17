@@ -49,30 +49,3 @@ def variance(q, AS, f):
 
         return D
     
-    
-    
-"""
-D_temp = np.zeros((np.shape(f)[0],np.shape(f)[0]))
-    D = np.zeros((np.shape(f)[0],1))
-    
-    if q < 0:
-        print("Iteration must be greater than 0! Exiting...")
-        return 
-    
-    else:      
-        if q > 0:
-            for k in range(np.shape(f)[1]):        #loop over # of isotopes
-                for i in range(np.shape(f)[0]):         #loop over # of array elements
-                    print("AS = " + str(AS))
-                    print("k = "+ str(k))
-                    print("f[i,k] = " + str(f[i,k]))
-                    D_temp[k,i] = AS[k]*f[i,k]   #Eqn. 5
-            
-            D = np.sum(D_temp,axis=1)  
-            
-        else:
-            print("AS = " + str(AS))
-            D = AS+1
-
-        return D
-"""
