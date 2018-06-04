@@ -7,8 +7,9 @@ Created on Wed May  9 14:29:08 2018
 from radioxenon_ml.solve import variance as v
 from radioxenon_ml.solve import matrix_values as matval
 import numpy as np
+"""
 import radioxenon_ml.solve.matrix_values
-
+"""
 
 def iterate(f,S,err=0.01):
     """

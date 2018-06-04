@@ -50,7 +50,13 @@ for i=1:6
     energy(:,1) = cellfun(@str2num,(columns{1,3}(2:end,1)))*1000;   %photon
     energy(:,2) = cellfun(@str2num,(columns{1,4}(2:end,1)))*1000;   %electron
     broadenedenergy = normrnd(energy,(0.17/2.35)*energy);           %apply gaussian broadening
-
+    
+%     if i==1
+%         broadenedenergyold = broadenedenergy;
+%     else
+%         broadenedenergyold = broadenedenergyold+floor(1/6*broadenedenergy);
+%     end
+    
     Z=hist3(broadenedenergy, 'ctrs', {Yedges Xedges});
     h=surfc(Xedges,Yedges,Z);
     axis xy
@@ -63,7 +69,7 @@ for i=1:6
     ylabel('Energy (kev), CZT 1 + CZT 2','Fontsize', 14);
     title([isotope, 'Xe electron-photon Coincidence'],'FontSize', 14, 'fontweight','bold');
     axis square
-
+    
     saveas(gcf,[isotope, '_plot.png']);
     saveas(gcf,[isotope, '_plot.fig']);
     save([isotope, '_histogram.mat'])
@@ -77,7 +83,20 @@ for i=1:6
     
 end
 
-csvwrite(['test', num2str(i+1+23), '.csv'],Zfliptot)
+Znew=hist3(broadenedenergytotal, 'ctrs', {Yedges Xedges});
+h=surfc(Xedges,Yedges,Znew);
+axis xy
+view(2)
+set(h,'LineStyle','none')
+set(gca, 'FontSize', 14)
+colorbar
+colormap jet
+xlabel('Energy (kev), Silicon 1 + Silicon 2','Fontsize', 14);
+ylabel('Energy (kev), CZT 1 + CZT 2','Fontsize', 14);
+title(['Composite Xe electron-photon Coincidence'],'FontSize', 14, 'fontweight','bold');
+axis square
+
+csvwrite(['test', num2str(i+2+23), '.csv'],Zfliptot)
 
 i=7
 isotope = char('background')

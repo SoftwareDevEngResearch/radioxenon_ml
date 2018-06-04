@@ -49,20 +49,3 @@ def form_matrix(spectrum_file_location, scale_array, n=5, offset=0):
     print("\nExperimental have been placed into the Maximum Likelihood Matrix")
         
     return simulation_arr, experimental_vec
-
-
-
-"""
-def scale_matrix(experiment_unscaled, simulation_unscaled, scale_array):
-"""
-"""
-Makes 4 arrays:
-    
---experiment(np.array): vector of experimental spectrum
---simulation(np.array): array of simulated spectra
-   -- scale_array(np.array): amount you'd like to scale each isotope by
-"""    
-
-"""
-return simulation, experiment
-"""

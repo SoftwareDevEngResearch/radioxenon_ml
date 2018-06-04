@@ -144,8 +144,3 @@ def test_K():
     assert np.shape(K)[1] == np.shape(f)[1]
     print("\nK Matrix is correct!")
     print(K)
-        
-def test_with_simulations():
-    """
-    tests with coincidence simulation data
-    """
