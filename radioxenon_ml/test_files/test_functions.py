@@ -40,9 +40,10 @@ def test_different_n_values():
     """
     spectrum_file_location = 'radioxenon_ml/test_files/test' 
     n=1
+    scale_array = np.array([1,1,1,1,1,1,1])
     for offset in range(0,6):
         try:
-            first_sim_vec, first_exp_vec = mlmc.form_matrix(spectrum_file_location,n,offset)
+            first_sim_vec, first_exp_vec = mlmc.form_matrix(spectrum_file_location,scale_array,n,offset)
         except FileNotFoundError:
             print(n+1+offset)
             assert n==0
@@ -56,9 +57,10 @@ def test_array_clear():
     n = 1
     offset = 3
     spectrum_file_location = 'radioxenon_ml/test_files/test'
-    first_sim_vec, first_exp_vec = mlmc.form_matrix(spectrum_file_location,n,offset)
+    scale_array = np.array([1,1,1,1,1,1,1])
+    first_sim_vec, first_exp_vec = mlmc.form_matrix(spectrum_file_location,scale_array,n,offset)
     offset = 4
-    second_sim_vec, second_exp_vec = mlmc.form_matrix(spectrum_file_location,n,offset)
+    second_sim_vec, second_exp_vec = mlmc.form_matrix(spectrum_file_location,scale_array,n,offset)
     print(np.shape(first_exp_vec))
     print(np.shape(second_exp_vec))
     assert np.shape(first_sim_vec) == np.shape(second_sim_vec)
@@ -85,8 +87,9 @@ def matrix_legitimacy():
     spectrum_file_location = file location of the dummy files, size 6x5
     """
     n = 5
+    scale_array = np.array([1,1,1,1,1,1,1])
     spectrum_file_location = 'radioxenon_ml/test_files/test'
-    simulation_vec, experimental_vec = mlmc.form_matrix(n,spectrum_file_location)
+    simulation_vec, experimental_vec = mlmc.form_matrix(spectrum_file_location,scale_array,n)
     assert simulation_vec[0,0] == 1
     assert simulation_vec[29,0] == 30
     assert simulation_vec[29,4] == 150

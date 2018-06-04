@@ -22,7 +22,7 @@ parser.add_argument('-o', '--offset',
                     default=23,
                     help='where to start the file selection from list of test files'
                     )
-args = parser.parse_args()
+args = parser.parse_args(sys.argv[1:])
 
 spectrum_file_location = 'radioxenon_ml/test_files/test'
 offset = args.offset
