@@ -7,17 +7,17 @@ Created on Wed Jun  6 09:54:07 2018
 import matplotlib.pyplot as pp
 import numpy as np
 
-
+n=6                 #number of isotopes
 x_min = 0           #parameters for axes for plotting
 y_min = 0
 x_max = 1000
 y_max = 1000
-bin_num = 100
+bin_num = 250
 
 spectrum_file_location = 'radioxenon_ml/spectrum_gen/'  #file location
 file_end ='_coin.txt'
 
-for i in range(0,6):    #plot all 6 radioxenon files
+for i in range(0,n):    #plot all 6 radioxenon files
     if i == 0:
         isotope = '131m'
     elif i == 1:
@@ -33,16 +33,40 @@ for i in range(0,6):    #plot all 6 radioxenon files
 
     #read out coincidence data and scale by 1000 (to put into keV instead of MeV)
     c_data = np.loadtxt(spectrum_file_location+isotope+file_end, skiprows=1)    
+
     c_data[:,(2,3)] *= 1000
     
     #Gaussian broadening
-    c_data[:,(2,3)] = np.random.normal(c_data[:,(2,3)], (0.17/2.35)*c_data[:,(2,3)])
+    c_data[:,(2,3)] = np.ceil(np.random.normal(c_data[:,(2,3)], (0.17/2.35)*c_data[:,(2,3)]))
+    if i==0:
+        c_data_total = c_data[:,(2,3)]
+    elif i>3:
+        c_data_total = np.concatenate((c_data_total,c_data[0:np.int(np.ceil(np.shape(c_data)[0]/3)),(2,3)]),axis=0)
+    else:
+        c_data_total = np.concatenate((c_data_total,c_data[:,(2,3)]),axis=0)
     
     # pp.ax.set_title('axes title')
     pp.xlabel('Summed energy deposited in PIPSBox (keV)')
     pp.ylabel('Summed energy deposited in SrI$_2$(Eu) (keV)')
-    pp.hist2d(c_data[:,3],c_data[:,2], bins=bin_num, range=[[x_min,x_max],[y_min,y_max]])
+    spectrum = pp.hist2d(c_data[:,3],c_data[:,2], bins=bin_num, range=[[x_min,x_max],[y_min,y_max]])
+    """
+    if i==0:
+        spectrum_total = np.zeros(np.shape(spectrum[0]))
+    spectrum_total = spectrum[0]+spectrum_total
+    """
     pp.set_cmap('jet')
     pp.colorbar()
     pp.show()
+    np.savetxt('radioxenon_ml/test_files/test'+str(i+32) + '.csv', spectrum[0],'%6.0f', delimiter=',')
+    
+
+# experimental spectrum
+pp.xlabel('Summed energy deposited in PIPSBox (keV)')
+pp.ylabel('Summed energy deposited in SrI$_2$(Eu) (keV)')
+spectrum = pp.hist2d(c_data_total[:,1],c_data_total[:,0], bins=bin_num, range=[[x_min,x_max],[y_min,y_max]])
+spectrum_exp=np.floor(spectrum[0]/n)
+pp.set_cmap('jet')
+pp.colorbar()
+pp.show()
+np.savetxt('radioxenon_ml/test_files/test'+str(32+n) + '.csv', spectrum_exp,'%6.0f', delimiter=',')
 
