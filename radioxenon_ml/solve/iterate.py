@@ -48,11 +48,16 @@ def iterate(f,S,err=0.01):
         K = matval.k_matrix_val(D,f)
         
         A = np.transpose(np.linalg.solve(K,J))
+        
+        for i in range(0,np.shape(A)[1]):
+            if A[0][i] < 0:
+                A[0][i] = 0
+        
         A =  A/np.sum(A)
         
-        compare_error = abs((A-Aold)/A)
+        compare_error = abs(np.divide((A-Aold), A, out=np.zeros_like(A), where=A!=0))
         
-        if np.max(compare_error) >= err and np.max(abs(A-Aold)) >= err**2 and np.min(abs(A)) > err*1E-5:
+        if np.max(compare_error) >= err and np.max(abs(A-Aold)) >= err**2:
         
             Aold = A
             q += 1

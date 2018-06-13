@@ -41,7 +41,7 @@ for i in range(0,n):    #plot all 6 radioxenon files
     c_data[:,(2,3)] = np.ceil(np.random.normal(c_data[:,(2,3)], (0.17/2.35)*c_data[:,(2,3)]))
     if i==0:
         c_data_total = c_data[:,(2,3)]
-    elif i>3:
+    elif i>2:
         c_data_total = np.concatenate((c_data_total,c_data[0:np.int(np.ceil(np.shape(c_data)[0]/3)),(2,3)]),axis=0)
     else:
         c_data_total = np.concatenate((c_data_total,c_data[:,(2,3)]),axis=0)
@@ -59,7 +59,7 @@ for i in range(0,n):    #plot all 6 radioxenon files
     pp.set_cmap('jet')
     pp.colorbar()
     pp.show()
-    fig.savefig('radioxenon_ml/test_files/'+isotope + '.png',dpi=300)
+    fig.savefig('radioxenon_ml/test_files/'+isotope + '.svg', format='svg')
     np.savetxt('radioxenon_ml/test_files/test'+str(i+32) + '.csv', spectrum[0],'%6.0f', delimiter=',')
     del fig
 
@@ -72,6 +72,6 @@ spectrum_exp=np.floor(spectrum[0]/n)
 pp.set_cmap('jet')
 pp.colorbar()
 pp.show()
-fig.savefig('radioxenon_ml/test_files/experimental.png',dpi=300)
+fig.savefig('radioxenon_ml/test_files/experimental.svg', format='svg')
 np.savetxt('radioxenon_ml/test_files/test'+str(32+n) + '.csv', spectrum_exp,'%6.0f', delimiter=',')
 
