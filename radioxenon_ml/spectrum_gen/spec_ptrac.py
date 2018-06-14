@@ -7,13 +7,13 @@ Created on Wed Jun  6 09:54:07 2018
 import matplotlib.pyplot as pp
 import numpy as np
 
-n=6                 #number of isotopes
+n=3                 #number of isotopes
 x_min = 0           #parameters for axes for plotting
 y_min = 0
 x_max = 1000
-y_max = 350
+y_max = 400
 bin_num_x = 500
-bin_num_y = 175
+bin_num_y = 200
 
 spectrum_file_location = 'radioxenon_ml/spectrum_gen/'  #file location
 file_end ='_coin.txt'
@@ -43,6 +43,7 @@ for i in range(0,n):    #plot all 6 radioxenon files
         c_data_total = c_data[:,(2,3)]
     elif i>2:
         c_data_total = np.concatenate((c_data_total,c_data[0:np.int(np.ceil(np.shape(c_data)[0]/3)),(2,3)]),axis=0)
+        print(np.shape(c_data[0:np.int(np.ceil(np.shape(c_data)[0]/3)),(2,3)]))
     else:
         c_data_total = np.concatenate((c_data_total,c_data[:,(2,3)]),axis=0)
     
@@ -60,9 +61,9 @@ for i in range(0,n):    #plot all 6 radioxenon files
     pp.colorbar()
     pp.show()
     fig.savefig('radioxenon_ml/test_files/'+isotope + '.svg', format='svg')
-    np.savetxt('radioxenon_ml/test_files/test'+str(i+32) + '.csv', spectrum[0],'%6.0f', delimiter=',')
+    np.savetxt('radioxenon_ml/test_files/test'+str(i+81) + '.csv', spectrum[0],'%6.0f', delimiter=',')
     del fig
-
+    print(np.sum(spectrum[0]))
 # experimental spectrum
 fig = pp.figure()
 pp.xlabel('Summed energy deposited in PIPSBox (keV)')
@@ -73,5 +74,5 @@ pp.set_cmap('jet')
 pp.colorbar()
 pp.show()
 fig.savefig('radioxenon_ml/test_files/experimental.svg', format='svg')
-np.savetxt('radioxenon_ml/test_files/test'+str(32+n) + '.csv', spectrum_exp,'%6.0f', delimiter=',')
+np.savetxt('radioxenon_ml/test_files/test'+str(81+n) + '.csv', spectrum_exp,'%6.0f', delimiter=',')
 
