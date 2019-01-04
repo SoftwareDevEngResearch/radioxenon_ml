@@ -7,8 +7,11 @@ Created on Wed Jun  6 09:54:07 2018
 import matplotlib.pyplot as pp
 import numpy as np
 
-n=3                 #number of isotopes
-x_min = 0           #parameters for axes for plotting
+saveplot = 1
+n=3                     #number of isotopes
+start_test_num = 81     #used for naming test spectra
+
+x_min = 0               #parameters for axes for plotting
 y_min = 0
 x_max = 1000
 y_max = 400
@@ -37,7 +40,8 @@ for i in range(0,n):    #plot all 6 radioxenon files
 
     c_data[:,(2,3)] *= 1000
     
-    #Gaussian broadening
+    #Gaussian broadening, a + b*sqrt(E + c*E^2)
+    #c_data[:,(2,3)] = np.ceil(np.random.normal(c_data[:,(2,3)], (0.17/2.35)*c_data[:,(2,3)]))
     c_data[:,(2,3)] = np.ceil(np.random.normal(c_data[:,(2,3)], (0.17/2.35)*c_data[:,(2,3)]))
     if i==0:
         c_data_total = c_data[:,(2,3)]
@@ -60,8 +64,9 @@ for i in range(0,n):    #plot all 6 radioxenon files
     pp.set_cmap('jet')
     pp.colorbar()
     pp.show()
-    fig.savefig('radioxenon_ml/test_files/'+isotope + '.svg', format='svg')
-    np.savetxt('radioxenon_ml/test_files/test'+str(i+81) + '.csv', spectrum[0],'%6.0f', delimiter=',')
+    if saveplot == 1:
+        fig.savefig('radioxenon_ml/test_files/'+isotope + '.svg', format='svg')
+        np.savetxt('radioxenon_ml/test_files/test'+str(start_test_num+i) + '.csv', spectrum[0],'%6.0f', delimiter=',')
     del fig
     print(np.sum(spectrum[0]))
 # experimental spectrum
@@ -73,6 +78,7 @@ spectrum_exp=np.floor(spectrum[0]/n)
 pp.set_cmap('jet')
 pp.colorbar()
 pp.show()
-fig.savefig('radioxenon_ml/test_files/experimental.svg', format='svg')
-np.savetxt('radioxenon_ml/test_files/test'+str(81+n) + '.csv', spectrum_exp,'%6.0f', delimiter=',')
+if saveplot == 1:    
+    fig.savefig('radioxenon_ml/test_files/experimental.svg', format='svg')
+    np.savetxt('radioxenon_ml/test_files/test'+str(start_test_num+n) + '.csv', spectrum_exp,'%6.0f', delimiter=',')
 
