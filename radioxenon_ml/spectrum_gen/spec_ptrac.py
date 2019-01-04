@@ -18,6 +18,11 @@ y_max = 400
 bin_num_x = 500
 bin_num_y = 200
 
+#gaussian broadening parameters, from "Delayed-Gamma Signature Calculation for Neutron-Induced Fission and Activation Using MCNPX"
+a_gauss = .0005797 #keV
+b_gauss = .0007192 #keV
+c_gauss = 1. #keV
+
 spectrum_file_location = 'radioxenon_ml/spectrum_gen/'  #file location
 file_end ='_coin.txt'
 
@@ -41,7 +46,7 @@ for i in range(0,n):    #plot all 6 radioxenon files
     c_data[:,(2,3)] *= 1000
     
     #Gaussian broadening, a + b*sqrt(E + c*E^2)
-    #c_data[:,(2,3)] = np.ceil(np.random.normal(c_data[:,(2,3)], (0.17/2.35)*c_data[:,(2,3)]))
+    #c_data[:,(2,3)] = np.ceil(np.random.normal(c_data[:,(2,3)], a_gauss + b_gauss*sqrt(c_data[:,(2,3)] + c_gauss*c_data[:,(2,3)]^2))
     c_data[:,(2,3)] = np.ceil(np.random.normal(c_data[:,(2,3)], (0.17/2.35)*c_data[:,(2,3)]))
     if i==0:
         c_data_total = c_data[:,(2,3)]
@@ -69,6 +74,7 @@ for i in range(0,n):    #plot all 6 radioxenon files
         np.savetxt('radioxenon_ml/test_files/test'+str(start_test_num+i) + '.csv', spectrum[0],'%6.0f', delimiter=',')
     del fig
     print(np.sum(spectrum[0]))
+    
 # experimental spectrum
 fig = pp.figure()
 pp.xlabel('Summed energy deposited in PIPSBox (keV)')
