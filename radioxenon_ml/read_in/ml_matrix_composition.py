@@ -26,13 +26,14 @@ def form_matrix(spectrum_file_location, scale_array = np.array([1,1,1,1,1,1,1]),
                but you only want to load 4-8. You would put in offset = 3 and 
                set n=5
     """    
-    nrowarr = np.empty(n+1, dtype=np.int32)    #define array for # of rows in each array
-    ncolarr = np.empty(n+1, dtype=np.int32)    #define array for # of columns in each array
-    
+    nrowarr = np.zeros(n+1, dtype=np.int32)    #define array for # of rows in each array
+    ncolarr = np.zeros(n+1, dtype=np.int32)    #define array for # of columns in each array
+    totcount = np.zeros(n, dtype=np.int32)   #define array for # counts in each spectrum
     for i in range(1,n+1):
         opened_spec_file = open(spectrum_file_location+str(i+offset)+'.csv')               
         coin_arr = arr_im.load_2d_coinc_spectrum(opened_spec_file)                            #loads the array
-        coin_arr = np.round(coin_arr*scale_array[i-1]);
+        coin_arr = np.round(coin_arr*scale_array[i-1])
+        totcount[i-1] = np.sum(coin_arr)
         columnvec, nrowarr[i-1], ncolarr[i-1] = arr_im.vector_spectrum(coin_arr)    #turns into column
         
         if i==1:                        
@@ -45,7 +46,8 @@ def form_matrix(spectrum_file_location, scale_array = np.array([1,1,1,1,1,1,1]),
     opened_spec_file = open(spectrum_file_location+str(n+1+offset)+'.csv')           #Opens experimental spectrum
     coin_arr = arr_im.load_2d_coinc_spectrum(opened_spec_file)                       #loads the array
     #experimental_vec = np.empty(columnvec.shape[0], dtype=int)                      
+    #totcount[n] = np.sum(coin_arr)
     experimental_vec, nrowarr[n], ncolarr[n] = arr_im.vector_spectrum(coin_arr)     #turns into column
     print("\nExperimental have been placed into the Maximum Likelihood Matrix")
         
-    return simulation_arr, experimental_vec
+    return simulation_arr, experimental_vec, totcount

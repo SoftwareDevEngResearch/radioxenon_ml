@@ -8,8 +8,8 @@ import matplotlib.pyplot as pp
 import numpy as np
 
 saveplot = 1
-n=3                     #number of isotopes
-start_test_num = 81     #used for naming test spectra
+n=6                     #number of isotopes
+start_test_num = 85     #used for naming test spectra
 
 x_min = 0               #parameters for axes for plotting
 y_min = 0
@@ -52,7 +52,12 @@ for i in range(0,n):    #plot all 6 radioxenon files
         c_data_total = c_data[:,(2,3)]
     elif i>2:
         c_data_total = np.concatenate((c_data_total,c_data[0:np.int(np.ceil(np.shape(c_data)[0]/3)),(2,3)]),axis=0)
-        print(np.shape(c_data[0:np.int(np.ceil(np.shape(c_data)[0]/3)),(2,3)]))
+        if n==6:
+            if i==3:
+                spec133 = c_data[0:np.int(np.ceil(np.shape(c_data)[0]/3)),(2,3)]
+            else:
+                spec133 = np.concatenate((spec133,c_data[0:np.int(np.ceil(np.shape(c_data)[0]/3)),(2,3)]),axis=0)
+        #print(np.shape(c_data[0:np.int(np.ceil(np.shape(c_data)[0]/3)),(2,3)]))
     else:
         c_data_total = np.concatenate((c_data_total,c_data[:,(2,3)]),axis=0)
     
@@ -60,6 +65,7 @@ for i in range(0,n):    #plot all 6 radioxenon files
     fig = pp.figure()
     pp.xlabel('Summed energy deposited in PIPSBox (keV)')
     pp.ylabel('Summed energy deposited in SrI$_2$(Eu) (keV)')
+
     spectrum = pp.hist2d(c_data[:,3],c_data[:,2], bins=[bin_num_x,bin_num_y], range=[[x_min,x_max],[y_min,y_max]])
     """
     if i==0:
@@ -70,21 +76,41 @@ for i in range(0,n):    #plot all 6 radioxenon files
     pp.colorbar()
     pp.show()
     if saveplot == 1:
-        fig.savefig('radioxenon_ml/test_files/'+isotope + '.svg', format='svg')
-        np.savetxt('radioxenon_ml/test_files/test'+str(start_test_num+i) + '.csv', spectrum[0],'%6.0f', delimiter=',')
-    del fig
-    print(np.sum(spectrum[0]))
-    
+        if n==6:
+            if i < 3:
+                print(np.shape(c_data))
+                fig.savefig('radioxenon_ml/test_files/'+isotope + '.svg', format='svg')
+                np.savetxt('radioxenon_ml/test_files/test'+str(start_test_num+i) + '.csv', spectrum[0],'%6.0f', delimiter=',')
+            elif i == 5:
+                del fig
+                fig = pp.figure()
+                pp.xlabel('Summed energy deposited in PIPSBox (keV)')
+                pp.ylabel('Summed energy deposited in SrI$_2$(Eu) (keV)')
+                spectrum = pp.hist2d(spec133[:,1],spec133[:,0], bins=[bin_num_x,bin_num_y], range=[[x_min,x_max],[y_min,y_max]])
+                pp.set_cmap('jet')
+                pp.colorbar()
+                pp.show()
+                print(np.shape(spec133))
+                fig.savefig('radioxenon_ml/test_files/'+ '133combined' + '.svg', format='svg')
+                np.savetxt('radioxenon_ml/test_files/test'+str(start_test_num+3) + '.csv', spectrum[0],'%6.0f', delimiter=',')        
+        else:
+            fig.savefig('radioxenon_ml/test_files/'+isotope + '.svg', format='svg')
+            np.savetxt('radioxenon_ml/test_files/test'+str(start_test_num+i) + '.csv', spectrum[0],'%6.0f', delimiter=',')                
+            
+     
 # experimental spectrum
 fig = pp.figure()
 pp.xlabel('Summed energy deposited in PIPSBox (keV)')
 pp.ylabel('Summed energy deposited in SrI$_2$(Eu) (keV)')
 spectrum = pp.hist2d(c_data_total[:,1],c_data_total[:,0], bins=[bin_num_x,bin_num_y], range=[[x_min,x_max],[y_min,y_max]])
-spectrum_exp=np.floor(spectrum[0]/n)
+spectrum_exp=(spectrum[0]/n)
 pp.set_cmap('jet')
 pp.colorbar()
 pp.show()
 if saveplot == 1:    
     fig.savefig('radioxenon_ml/test_files/experimental.svg', format='svg')
-    np.savetxt('radioxenon_ml/test_files/test'+str(start_test_num+n) + '.csv', spectrum_exp,'%6.0f', delimiter=',')
-
+    if n == 6:
+        np.savetxt('radioxenon_ml/test_files/test'+str(start_test_num+4) + '.csv', spectrum_exp,'%6.0f', delimiter=',')
+    else:
+        np.savetxt('radioxenon_ml/test_files/test'+str(start_test_num+n) + '.csv', spectrum_exp,'%6.0f', delimiter=',')
+    print(np.shape(c_data_total))

@@ -9,7 +9,7 @@ import numpy as np
 
 saveplot = 0
 test_num = 81     #used for naming test spectra
-rotate = 0
+rotate = 1
 
 x_min = 0               #parameters for axes for plotting
 y_min = 0
@@ -21,14 +21,14 @@ bin_num_y = 200
 spectrum_file_location = 'radioxenon_ml/test_files/test'  #file location
 file_end ='.csv'
 
-for test_num in range(11,85):
-    my_data = np.genfromtxt(spectrum_file_location+str(test_num)+file_end, delimiter=',')
+for test_num in range(85,92):
+    print(test_num)
+    my_data = np.genfromtxt(spectrum_file_location+str(test_num)+file_end, delimiter=',')   
     
-    #spectrum = np.zeros((np.amax(len(my_data)),np.amax(len(my_data))))
-   
-    
+    print(np.sum(my_data))
     if rotate == 1:
-         spectrum = np.zeros((np.shape(my_data)[1],np.shape(my_data)[0]))
+         spectrum = np.zeros((np.amax(len(my_data)),np.amax(len(my_data))))
+         #spectrum = np.zeros((np.shape(my_data)[1],np.shape(my_data)[0]))
          for i in range(0,np.shape(my_data)[1]):
             spectrum[i,:] = my_data[:,i]
     else:

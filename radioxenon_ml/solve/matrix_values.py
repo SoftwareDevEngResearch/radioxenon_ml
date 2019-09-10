@@ -66,6 +66,4 @@ def k_matrix_val(D,f):
     
             K[m,j] = np.sum(K_element_temp[j])  #sum all elements to make an entry in the array
     
-
     return K
-    
