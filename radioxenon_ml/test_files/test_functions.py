@@ -40,9 +40,10 @@ def test_different_n_values():
     """
     spectrum_file_location = 'radioxenon_ml/test_files/test' 
     n=1
+    scale_array = np.array([1,1,1,1,1,1,1])
     for offset in range(0,6):
         try:
-            first_sim_vec, first_exp_vec = mlmc.form_matrix(spectrum_file_location,n,offset)
+            first_sim_vec, first_exp_vec = mlmc.form_matrix(spectrum_file_location,scale_array,n,offset)
         except FileNotFoundError:
             print(n+1+offset)
             assert n==0
@@ -56,9 +57,10 @@ def test_array_clear():
     n = 1
     offset = 3
     spectrum_file_location = 'radioxenon_ml/test_files/test'
-    first_sim_vec, first_exp_vec = mlmc.form_matrix(spectrum_file_location,n,offset)
+    scale_array = np.array([1,1,1,1,1,1,1])
+    first_sim_vec, first_exp_vec = mlmc.form_matrix(spectrum_file_location,scale_array,n,offset)
     offset = 4
-    second_sim_vec, second_exp_vec = mlmc.form_matrix(spectrum_file_location,n,offset)
+    second_sim_vec, second_exp_vec = mlmc.form_matrix(spectrum_file_location,scale_array,n,offset)
     print(np.shape(first_exp_vec))
     print(np.shape(second_exp_vec))
     assert np.shape(first_sim_vec) == np.shape(second_sim_vec)
@@ -85,8 +87,9 @@ def matrix_legitimacy():
     spectrum_file_location = file location of the dummy files, size 6x5
     """
     n = 5
+    scale_array = np.array([1,1,1,1,1,1,1])
     spectrum_file_location = 'radioxenon_ml/test_files/test'
-    simulation_vec, experimental_vec = mlmc.form_matrix(n,spectrum_file_location)
+    simulation_vec, experimental_vec = mlmc.form_matrix(spectrum_file_location,scale_array,n)
     assert simulation_vec[0,0] == 1
     assert simulation_vec[29,0] == 30
     assert simulation_vec[29,4] == 150
@@ -102,10 +105,9 @@ def test_variance():
     first test the variance function using an experimental vector, then
     test the variance function using two known vectors
     """
-    S = np.array([1,2,3,4,5,6,7,8,9,10,11,12])
-    A = np.array([1,2,3,4,5])
-    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]])
-    D=np.array([])   
+    S = np.array([[1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[12]])
+    A = np.array([[1,2,3,4,5]])
+    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]]).T 
     for q in range(0,3):
         if q == 0:
             D=v.variance(q,S,f)
@@ -114,7 +116,7 @@ def test_variance():
             print("\nFirst iteration is correct!")
         else:
             D=v.variance(q,A,f)
-            assert np.shape(D)[0] == np.shape(f)[1]
+            assert np.shape(D)[0] == np.shape(f)[0]
             print("\nLengths are proper!")
             print(D)
         
@@ -122,12 +124,12 @@ def test_J():
     """
     Test to make sure the J vector comes out as a column of 4 isotopes + bkgd
     """
-    S = np.array([1,2,3,4,5,6,7,8,9,10,11,12])
-    D = np.array([1,  1,  1,  1,  1,  1, 11, 11, 11, 11, 11, 11]) 
-    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]])
+    S = np.array([[1],[2],[3],[4],[5],[6],[7],[8],[9],[10],[11],[12]])
+    D = np.array([1,  1,  1,  1,  1,  1, 11, 11, 11, 11, 11, 11]).T
+    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]]).T
   
     J=matval.j_matrix_val(S,D,f)
-    assert np.shape(J)[0] == np.shape(f)[0]
+    assert np.shape(J)[0] == np.shape(f)[1]
     assert np.shape(J)[1] == 1
     print("\nJ column vector is correct!")
     print(J)
@@ -138,11 +140,10 @@ def test_K():
     test the variance function using two known vectors
     """
     D = np.array([1,  1,  1,  1,  1,  1, 11, 11, 11, 11, 11, 11]) 
-    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]])
+    f = np.array([[0,0,0,0,0,0,1,1,1,1,1,1],[1,1,1,1,1,1,2,2,2,2,2,2],[2,2,2,2,2,2,3,3,3,3,3,3],[3,3,3,3,3,3,4,4,4,4,4,4],[0,1,0,0,1,0,2,3,1,0,0,0]]).T
  
     K=matval.k_matrix_val(D,f)
-    assert np.shape(K)[0] == np.shape(f)[0]
-    assert np.shape(K)[1] == np.shape(f)[0]
+    assert np.shape(K)[0] == np.shape(f)[1]
+    assert np.shape(K)[1] == np.shape(f)[1]
     print("\nK Matrix is correct!")
     print(K)
-        

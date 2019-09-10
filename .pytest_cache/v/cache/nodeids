@@ -1,4 +1,9 @@
 [
-  "radioxenon_ml/test_files/test_functions.py::test_import_sizes",
-  "radioxenon_ml/test_files/test_functions.py::test_two_matrices"
+  "radioxenon_ml/test_files/test_functions.py::test_file_existence",
+  "radioxenon_ml/test_files/test_functions.py::test_different_n_values",
+  "radioxenon_ml/test_files/test_functions.py::test_array_clear",
+  "radioxenon_ml/test_files/test_functions.py::test_two_matrices",
+  "radioxenon_ml/test_files/test_functions.py::test_variance",
+  "radioxenon_ml/test_files/test_functions.py::test_J",
+  "radioxenon_ml/test_files/test_functions.py::test_K"
 ]

@@ -99,3 +99,21 @@ ENV/
 
 # mypy
 .mypy_cache/
+<<<<<<< HEAD
+<<<<<<< HEAD
+radioxenon_ml/spectrum_gen/ptrac_31mE4_CZT
+radioxenon_ml/spectrum_gen/ptrac_31mX4_CZT
+radioxenon_ml/spectrum_gen/ptrac_33B4_CZT
+radioxenon_ml/spectrum_gen/ptrac_33E4_CZT
+radioxenon_ml/spectrum_gen/ptrac_33G4_CZT
+radioxenon_ml/spectrum_gen/ptrac_33X4_CZT
+radioxenon_ml/spectrum_gen/ptrac_35B4_CZT
+radioxenon_ml/spectrum_gen/ptrac_35G4_CZT
+*.fig
+*.png
+radioxenon_ml/spectrum_gen/ptrac*
+=======
+>>>>>>> 974447defcb6101e861049312e146c235ba43ad1
+=======
+>>>>>>> 974447defcb6101e861049312e146c235ba43ad1
+*.asv
